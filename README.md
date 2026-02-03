@@ -1,3 +1,9 @@
+## Vorschau: Over 9000 Szene
+
+![Over 9000 Szene](over9000_frames/frame_001.png)
+
+*Erste Szene aus der Over 9000 Animation*
+
 # Vegeta_AttaSCII
 
 ## Extra Story: IT'S OVER 9000!!!
