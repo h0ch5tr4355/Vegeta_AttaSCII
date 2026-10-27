@@ -1,20 +1,22 @@
 #!/usr/bin/env python3
-"""Lädt die Vorlagen der Life-of-Vegeta-Reihe aus dem Dragon Ball Wiki (Fandom).
+"""Lädt die Bildvorlagen aus dem Dragon Ball Wiki (Fandom).
 
 Die Bilder sind urheberrechtlich geschützt und deshalb nicht im Repo - die Liste
-(lokaler Dateiname -> Wiki-Datei) steht in images/life_of_vegeta/SOURCES.md.
+(lokaler Dateiname -> Wiki-Datei) steht je Ordner in images/<ordner>/SOURCES.md
+(life_of_vegeta, victory).
 
     python3 fetch_images.py          # nur fehlende Bilder laden
     python3 fetch_images.py --force  # alle neu laden
 """
 import argparse
+import glob
 import json
 import os
 import re
 import urllib.parse
 import urllib.request
 
-DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "images", "life_of_vegeta")
+IMAGES = os.path.join(os.path.dirname(os.path.abspath(__file__)), "images")
 API = "https://dragonball.fandom.com/api.php"
 # Fandom blockt Requests ohne Browser-User-Agent mit 403
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:130.0) Gecko/20100101 Firefox/130.0"
@@ -32,10 +34,13 @@ def main():
     ap.add_argument("--force", action="store_true", help="vorhandene Bilder überschreiben")
     args = ap.parse_args()
 
-    with open(os.path.join(DIR, "SOURCES.md")) as f:
-        rows = [m.groups() for m in map(ROW.match, f) if m]
-    todo = [(name, title) for name, title in rows
-            if args.force or not os.path.exists(os.path.join(DIR, name))]
+    todo = []
+    for sources in sorted(glob.glob(os.path.join(IMAGES, "*", "SOURCES.md"))):
+        d = os.path.dirname(sources)
+        with open(sources) as f:
+            rows = [m.groups() for m in map(ROW.match, f) if m]
+        todo += [(os.path.join(d, name), title) for name, title in rows
+                 if args.force or not os.path.exists(os.path.join(d, name))]
     if not todo:
         print("alle Bilder vorhanden")
         return
@@ -48,12 +53,13 @@ def main():
     norm = {n["from"]: n["to"] for n in data.get("normalized", [])}
     urls = {p["title"]: p["imageinfo"][0]["url"] for p in data["pages"].values() if "imageinfo" in p}
 
-    for name, title in todo:
+    for path, title in todo:
+        name = os.path.relpath(path, IMAGES)
         url = urls.get(norm.get("File:" + title, "File:" + title))
         if not url:
             print(f"FEHLT  {name}  (Wiki-Datei '{title}' nicht gefunden)")
             continue
-        with open(os.path.join(DIR, name), "wb") as f:
+        with open(path, "wb") as f:
             f.write(get(url))
         print(f"OK     {name}")
 

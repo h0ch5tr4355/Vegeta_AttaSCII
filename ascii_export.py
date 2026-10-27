@@ -32,6 +32,7 @@ def scene(src, caption, rows=32, crop=None, invert=False, cut=False, gamma=1.0, 
     return dict(src=src, caption=caption, rows=rows, crop=crop, invert=invert, cut=cut, gamma=gamma, out=out)
 
 
+VICTORY = "images/victory"
 LIFE = "images/life_of_vegeta"
 LIFE_OUT = "life_of_vegeta"
 
@@ -43,6 +44,12 @@ SCENES = {
     "ssj1": scene("vegeta_ssj1.webp", "SUPER SAIYAN VEGETA", rows=40, crop=(0.22, 0.08, 0.78, 0.92)),
     "final_flash": scene("vegeta_final_flash.png", "FINAL FLASH!!!", rows=36, crop=(0.58, 0.0, 1.0, 1.0), gamma=0.45),
     "explosion": scene("explosion.png", "*KABOOOM*", rows=24),
+    # Bilder nicht im Repo -> erst python3 fetch_images.py. Die Sparking!-Zero-Artworks nur als Kopf-Ausschnitt,
+    # ganzkörperig gehen Gesicht und Scouter verloren. Verworfen: Funko SSJ Vegeta (gelbe Haare werden ein Klumpen).
+    "badman": scene(f"{VICTORY}/badman.png", "BADMAN", rows=34, cut=True),
+    "majin_vegeta": scene(f"{VICTORY}/majin_vegeta.png", "MAJIN VEGETA", rows=40, crop=(0.25, 0.04, 0.60, 0.40),
+                          gamma=0.6),
+    "scouter": scene(f"{VICTORY}/scouter.png", "POWER LEVEL CHECK", rows=36, crop=(0.36, 0.03, 0.86, 0.38), gamma=1.4),
 
     # --- Life of Vegeta: Kindheit bis Majin-Saga. Bilder nicht im Repo -> erst python3 fetch_images.py ---
     # Hochformat-Szenen brauchen viele Zeilen (60-70), sonst werden sie zu schmal und Gesichter verschwinden.

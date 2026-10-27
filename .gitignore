@@ -2,3 +2,5 @@
 __pycache__/
 images/life_of_vegeta/*
 !images/life_of_vegeta/SOURCES.md
+images/victory/*
+!images/victory/SOURCES.md

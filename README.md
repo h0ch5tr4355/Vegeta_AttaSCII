@@ -38,7 +38,7 @@ python3 ascii_export.py vegeta ssj1  # nur bestimmte Szenen
 python3 ascii_export.py --width 80   # schmaler
 ```
 
-Szenen: `over9000`, `vegeta`, `ssj1`, `final_flash`, `explosion` sowie die Reihe **Life of Vegeta** (`01_planet_vegeta` … `14_final_explosion`, Kindheit bis Majin-Saga) nach `ascii/life_of_vegeta/`. `python3 ascii_export.py --list` zeigt alle. Zuschnitt, Höhe, Gamma und Freistellen pro Bild stehen in `SCENES` im Skript; die Vorlagen der Life-of-Vegeta-Reihe sind urheberrechtlich geschützt und nicht im Repo - `python3 fetch_images.py` lädt sie anhand von `images/life_of_vegeta/SOURCES.md` aus dem Dragon Ball Wiki.
+Szenen: `over9000`, `vegeta`, `ssj1`, `final_flash`, `explosion`, `badman`, `majin_vegeta`, `scouter` sowie die Reihe **Life of Vegeta** (`01_planet_vegeta` … `14_final_explosion`, Kindheit bis Majin-Saga) nach `ascii/life_of_vegeta/`. `python3 ascii_export.py --list` zeigt alle. Zuschnitt, Höhe, Gamma und Freistellen pro Bild stehen in `SCENES` im Skript; die Vorlagen von `badman`, `majin_vegeta`, `scouter` und der Life-of-Vegeta-Reihe sind urheberrechtlich geschützt und nicht im Repo - `python3 fetch_images.py` lädt sie anhand von `images/victory/SOURCES.md` bzw. `images/life_of_vegeta/SOURCES.md` aus dem Dragon Ball Wiki.
 
 **Voraussetzung:** Python 3 + Pillow (`pip install pillow`). Für Szenen mit `cut=True` zusätzlich [rembg](https://github.com/danielgatis/rembg) (lädt beim ersten Lauf das Modell `isnet-anime`, ~176 MB), am besten in einem venv:
 
